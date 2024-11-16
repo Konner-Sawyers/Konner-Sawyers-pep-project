@@ -8,28 +8,32 @@ import java.util.List;
 public class MessageService {
     private MessageDAO messageDAO;
 
+    public MessageService(){
+        messageDAO = new MessageDAO();
+    }
+
     public Message createMessage(Message message){
-        return null;
+        return messageDAO.createMesseage(message);
     }
 
     public List<Message> getAllMessages(){
-        return null;
+        return messageDAO.getAllMessages();
     }
 
     public Message getMessageById(int id){
-        return null;
+        return messageDAO.getMessageById(id);
     }
 
     public String deleteMessageById(int id){
-        return null;
+        return messageDAO.deleteMessageById(id);
     }
 
     public Message updateMessageById(int id){
-        return null;
+        return messageDAO.updateMessageById(id);
     }
 
     public List<Message> getMessageByUserId(int id){
-        return null;
+        return messageDAO.getMessageByUserId(id);
     }
 
 }

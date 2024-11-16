@@ -19,14 +19,10 @@ public class Main {
 
         HttpClient webClient = HttpClient.newHttpClient();;
 
-        HttpRequest postRequest = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/login"))
-                .POST(HttpRequest.BodyPublishers.ofString("{" +
-                        "\"username\": \"testuser1\", " +
-                        "\"password\": \"password\" }"))
-                .header("Content-Type", "application/json")
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:8080/accounts/1/messages"))
                 .build();
-        HttpResponse response = webClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
+        HttpResponse response = webClient.send(request, HttpResponse.BodyHandlers.ofString());
         int status = response.statusCode();
 
 

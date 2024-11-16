@@ -18,7 +18,6 @@ public class AccountService {
 
     public Account login(Account account){
         Account returnAccount = accountDAO.loginAccount(account);
-        System.err.println(returnAccount);
         return returnAccount;
     }
 
