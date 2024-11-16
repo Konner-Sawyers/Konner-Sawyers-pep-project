@@ -24,11 +24,11 @@ public class MessageService {
         return messageDAO.getMessageById(id);
     }
 
-    public String deleteMessageById(int id){
+    public Message deleteMessageById(int id){
         return messageDAO.deleteMessageById(id);
     }
 
-    public Message updateMessageById(int id){
+    public Message updateMessageById(int id, String text){
         return messageDAO.updateMessageById(id);
     }
 

@@ -94,24 +94,35 @@ public class SocialMediaController {
 
     private void getOneMessageByIdHandler(Context ctx) throws JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();
-        int id = mapper.readValue(ctx.body(), int.class);
-        Message message = messageService.getMessageById(id);
-
-        ctx.json(mapper.writeValueAsString(message));
+        String str_id = ctx.pathParam("message_id");
+        Message message = messageService.getMessageById(Integer.parseInt(str_id));
+        System.out.println(message);
+        if(message != null){
+            ctx.json(mapper.writeValueAsString(message));
+        }
+        else{
+            ctx.json("");
+        }
     }
 
     private void deleteMessageByIdHandler(Context ctx) throws JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();
-        int id = mapper.readValue(ctx.body(), int.class);
-        String string = messageService.deleteMessageById(id);
-
-        ctx.json(mapper.writeValueAsString(string));
+        String str_id = ctx.pathParam("message_id");
+        Message message = messageService.deleteMessageById(Integer.parseInt(str_id));
+        System.out.println("RESULT: -> " + message);
+        
+        if(message != null){
+            ctx.json(mapper.writeValueAsString(message));
+        }
+        else{
+            ctx.json("");
+        }
     }
 
     private void updateMessageByIdHandler(Context ctx) throws JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();
-        int id = mapper.readValue(ctx.body(), int.class);
-        Message message = messageService.updateMessageById(id);
+        String str_id = ctx.pathParam("message_id");
+        Message message = messageService.updateMessageById(Integer.parseInt(str_id));
         if(message != null){
             ctx.json(mapper.writeValueAsString(message));
         }

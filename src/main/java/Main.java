@@ -1,6 +1,11 @@
 import Controller.SocialMediaController;
 import io.javalin.Javalin;
 
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -20,10 +25,13 @@ public class Main {
         HttpClient webClient = HttpClient.newHttpClient();;
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/accounts/1/messages"))
+                .uri(URI.create("http://localhost:8080/messages/1"))
+                .DELETE()
                 .build();
         HttpResponse response = webClient.send(request, HttpResponse.BodyHandlers.ofString());
         int status = response.statusCode();
+        Assert.assertEquals(200, status);
+        Assert.assertTrue(response.body().toString().isEmpty());
 
 
     }

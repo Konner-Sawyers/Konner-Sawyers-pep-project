@@ -38,14 +38,55 @@ public class MessageDAO {
     }
 
     public Message getMessageById(int id){
+        try{
+            Connection conn = ConnectionUtil.getConnection();
+            String sql = "SELECT * FROM message WHERE message_id = ?;";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            preparedStatement.setInt(1, id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                Message message = new Message(
+                    rs.getInt(1),
+                    rs.getInt(2),
+                    rs.getString(3),
+                    rs.getLong(4)
+                );
+                return message;
+            }
+        }
+
+        catch(SQLException e){System.out.println(e);}
         return null;
     }
 
-    public String deleteMessageById(int id){
+    public Message deleteMessageById(int id){
+        //REVISIT FOR CLEAN UP
+        try{
+            Message message;
+            if(getMessageById(id) != null){
+                message = getMessageById(id);
+            
+
+                Connection conn = ConnectionUtil.getConnection();
+                String sql = "DELETE FROM message WHERE message_id = ?;";
+                PreparedStatement preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+                preparedStatement.setInt(1, id);
+
+                preparedStatement.executeUpdate();
+                ResultSet rs = preparedStatement.getGeneratedKeys();
+
+                return message;
+            }
+        }
+
+        catch(SQLException e){System.out.println(e);}
         return null;
     }
 
-    public Message updateMessageById(int id){
+    public Message updateMessageById(int id, String text){
         return null;
     }
 
