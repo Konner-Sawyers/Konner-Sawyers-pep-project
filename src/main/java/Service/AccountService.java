@@ -3,17 +3,23 @@ package Service;
 import DAO.AccountDAO;
 import Model.Account;
 
-import java.util.List;
 
 public class AccountService {
     private AccountDAO accountDAO;
 
+    public AccountService(){
+        accountDAO = new AccountDAO();
+    }
+
     public Account createAccount(Account account){
-        return null;
+        Account returnAccount = accountDAO.createAccount(account);
+        return returnAccount;
     }
 
     public Account login(Account account){
-        return null;
+        Account returnAccount = accountDAO.loginAccount(account);
+        System.err.println(returnAccount);
+        return returnAccount;
     }
 
 }
