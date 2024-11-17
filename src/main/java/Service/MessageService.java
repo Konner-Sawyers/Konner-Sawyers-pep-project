@@ -13,6 +13,8 @@ public class MessageService {
     }
 
     public Message createMessage(Message message){
+        //Returns null if message size is invalid
+        if(message.getMessage_text().length() > 255 || message.getMessage_text().trim().length()== 0){return null;}
         return messageDAO.createMesseage(message);
     }
 
@@ -25,11 +27,16 @@ public class MessageService {
     }
 
     public Message deleteMessageById(int id){
-        return messageDAO.deleteMessageById(id);
+        if(messageDAO.getMessageById(id) != null){
+            return messageDAO.deleteMessageById(id);
+        }
+        else{return null;}
     }
 
-    public Message updateMessageById(int id, String text){
-        return messageDAO.updateMessageById(id);
+    public Message updateMessageById(int id, Message message){
+        String text = message.getMessage_text();
+        if(text.length() > 255 || text.trim().length() < 1){return null;}
+        return messageDAO.updateMessageById(id, text);
     }
 
     public List<Message> getMessageByUserId(int id){

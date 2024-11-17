@@ -24,14 +24,14 @@ public class Main {
 
         HttpClient webClient = HttpClient.newHttpClient();;
 
-        HttpRequest request = HttpRequest.newBuilder()
+        HttpRequest postMessageRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:8080/messages/1"))
-                .DELETE()
+                .method("PATCH", HttpRequest.BodyPublishers.ofString("{"+
+                        "\"message_text\": \"updated message\" }"))
+                .header("Content-Type", "application/json")
                 .build();
-        HttpResponse response = webClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse response = webClient.send(postMessageRequest, HttpResponse.BodyHandlers.ofString());
         int status = response.statusCode();
-        Assert.assertEquals(200, status);
-        Assert.assertTrue(response.body().toString().isEmpty());
 
 
     }
